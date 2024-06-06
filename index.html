@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Youtube Ambiance Feature</title>
+</head>
+<style> 
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  #video {
+    position: relative;
+    width: 50vw;
+    height: 50vh;
+  }
+  video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-size: cover;
+  }
+  canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+    width: 110%;
+    height: 110%;
+    filter: blur(50px);
+  }
+
+</style>
+<body>
+  <div id="video">
+    <video src="video.mov" controls></video>
+    <canvas id="mycanvas">
+    </canvas>
+  </div>
+  <script>
+    const video = document.querySelector('video');
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+
+    video.addEventListener('play', () => {
+      const draw = () => {
+        ctx.drawImage(video, 0, 0, width, height);
+        requestAnimationFrame(draw);
+      };
+      draw();
+    });
+  
+
+  </script>
+</body>
+</html>
